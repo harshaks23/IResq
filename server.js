@@ -1,17 +1,20 @@
 var express = require('express')
 var path = require('path');
 var app = express()
- 
-app.use(express.static('dist'))
-// app.get('/', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/dist/index.html'));
-// });
 
-app.get('/test', function (req, res) {
-  res.send('Hello World')
+app.use(express.static('dist'))
+
+app.get('/getKey', function (req, res) {
+  res.send({ niceText : process.env.APPKEY});
 })
  
-app.listen(process.env.PORT || 3000)
+var server = app.listen(process.env.PORT || 3000)
+var io = require('socket.io').listen(server);
 
-var app = express();
-
+io.on('connection', function(socket){
+  console.log('user is connected');
+  socket.on('onImageDetect', function(data){
+    io.emit('onMapUpdate', data);
+    console.log('message: ' + data.message);
+  });
+});
