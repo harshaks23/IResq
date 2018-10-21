@@ -86,7 +86,7 @@ window.take_snapshot = function() {
                 
                 }
               })();
-      //sendText('3123588613', data_uri, 'Info');
+      sendText('3123588613', data_uri, 'Info');
       //sendText('3123588613', null, 'Info');
 
 
