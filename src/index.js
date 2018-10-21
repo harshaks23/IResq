@@ -18,11 +18,30 @@ const makeblob = function (dataURL) {
     return parts[1];
 }
 
+const sendText =  (number, data, text) =>{
+
+fetch('/text', {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({number: number, image: data, text: text})
+  });
+
+
+}
+
+window.take_snapshot_continues = () => {
+  setInterval(() => { console.log("Capture"); }, 3000);
+} 
+
 window.take_snapshot = function() {
     Webcam.snap( function(data_uri) {
+
         document.getElementById('results').innerHTML = 
-            '<h2>Here is your image:</h2>' + 
-            '<img src="'+data_uri+'"/>';
+            '<center><h2>Your image is now processing...</h2>' + 
+            '<img src="'+data_uri+'"/></center>';
 
             (async () => {
                 const response = await fetch('/getKey');
@@ -67,6 +86,8 @@ window.take_snapshot = function() {
                 
                 }
               })();
+      //sendText('3123588613', data_uri, 'Info');
+      //sendText('3123588613', null, 'Info');
 
 
     } );

@@ -8,16 +8,24 @@
 <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
 <script type="text/javascript" src=https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js></script>
+<title>ResQ Dashboard</title>
 </head>
 <body>
   <div id="map" style="width: 100%; height: 100%; background: grey;position: absolute;" />
   <script  type="text/javascript" charset="UTF-8" >
 
- var icon = new H.map.Icon('graphics/markerHouse.png');
+ var icon = new H.map.Icon('attention_.png');
+ var fireIcon = new H.map.Icon('fire.png');
 
 function addMarkersToMap(map, data) {
 
   var insident = new H.map.Marker(data.mapPoint);
+
+  if(data.icon){
+    insident.setIcon(fireIcon);
+  } else {
+    insident.setIcon(icon);
+  }
   insident.setData(data.message);
   map.addObject(insident);
   map.addEventListener('tap', function (evt) {
@@ -60,6 +68,49 @@ socket.on('onMapUpdate', function(data) {
     console.log('message: ' + data.message);
     console.log('location: ' + data.mapPoint);
     addMarkersToMap(map, data);
+});
+
+addMarkersToMap(map, {
+    message:'Food/Water Help',
+    mapPoint: {
+    lat:40.4244775,
+    lng:-86.9126673
+    }
+});
+
+
+addMarkersToMap(map, {
+    message:'SOS Need Food',
+    mapPoint: {
+    lat:18.215838,
+    lng:-66.602438
+    }
+});
+
+addMarkersToMap(map, {
+    message:'Fire Alert',
+    icon: 'fire',
+    mapPoint: {
+    lat:38.149248, 
+    lng:-119.795684
+    }
+});
+
+
+addMarkersToMap(map, {
+    message:'SOS Need Water',
+    mapPoint: {
+    lat:18.012451,
+    lng:-66.266941
+    }
+});
+
+addMarkersToMap(map, {
+    message:'SOS Need Food & Water',
+    mapPoint: {
+    lat:0.892228,
+    lng:104.520065
+    }
 });
 
 </script>
