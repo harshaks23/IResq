@@ -19,7 +19,10 @@
 
 function addMarkersToMap(map, data) {
 
-  var insident = new H.map.Marker(data.mapPoint);
+  var insident = new H.map.Marker({
+    lat : data.mapPoint.lat,
+    lng : data.mapPoint.lng
+  });
 
   if(data.icon){
     insident.setIcon(fireIcon);
