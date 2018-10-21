@@ -34,7 +34,7 @@ function addMarkersToMap(map, data) {
   map.addEventListener('tap', function (evt) {
    
     var bubble = new H.ui.InfoBubble(evt.target.getPosition(), {
-      content: '<p>'+evt.target.getData()+'<p>'
+      content: '<div>'+evt.target.getData()+'</div>'
     });
 
     ui.addBubble(bubble);
